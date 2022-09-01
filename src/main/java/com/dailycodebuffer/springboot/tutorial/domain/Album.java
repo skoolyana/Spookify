@@ -12,11 +12,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import com.dailycodebuffer.springboot.tutorial.domain.annotations.JacksonIdSerializer;
+
 import lombok.Data;
 
 @Entity
 @Data
+@Cache(region = "albumCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Album {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +35,9 @@ public class Album {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Artist artist;
 
+	 @JacksonIdSerializer
+	 @Cache(region = "albumCache", usage = CacheConcurrencyStrategy.READ_WRITE)
+	
 	@OneToMany(mappedBy = "album", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Song> songs = new ArrayList<>();
 
