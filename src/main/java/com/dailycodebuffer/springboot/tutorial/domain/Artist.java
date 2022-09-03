@@ -1,5 +1,6 @@
 package com.dailycodebuffer.springboot.tutorial.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Cache(region = "artistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Artist {
+public class Artist implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,14 +31,10 @@ public class Artist {
 	private String photo_url;
 
 	
-	@JacksonIdSerializer
-    @Cache(region = "artistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Album> albums = new ArrayList<>();
 	
 	
-    @JacksonIdSerializer
-    @Cache(region = "artistCache", usage = CacheConcurrencyStrategy.READ_WRITE)	
 	@OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Song> songs = new ArrayList<>();
 

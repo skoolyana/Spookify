@@ -28,7 +28,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Cache(region = "playlistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Playlist {
 
 	@Id
@@ -44,8 +43,6 @@ public class Playlist {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private User user;
 
-	@JacksonIdSerializer
-    @Cache(region = "playlistCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "SONG_PLAYLIST", joinColumns = @JoinColumn(name = "PLAYLIST_ID"), inverseJoinColumns = @JoinColumn(name = "SONG_ID"))
 	private List<Song> songs = new ArrayList<>();

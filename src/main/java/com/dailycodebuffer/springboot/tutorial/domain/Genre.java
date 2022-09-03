@@ -19,7 +19,6 @@ import lombok.Data;
 
 @Entity
 @Data
-@Cache(region = "genreCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Genre {
 
 	@Id
@@ -29,8 +28,6 @@ public class Genre {
 	private String name;
 	private String photo_url;
 
-	@JacksonIdSerializer
-	@Cache(region = "genreCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 
 	@ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
 	private List<Song> songs = new ArrayList();

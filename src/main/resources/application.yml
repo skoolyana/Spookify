@@ -1,0 +1,12 @@
+spring:
+  cache:
+    redis:
+      time-to-live: 100S
+    type: simple
+  profiles:
+    active: dev
+ 
+    mvc:
+      pathmatch:
+            matching-strategy: ant_path_matcher
+ 

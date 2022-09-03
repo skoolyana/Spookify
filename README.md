@@ -3,6 +3,13 @@
 # Getting Started
 # #https://github.com/theavicaster/spookify/blob/master/spring_backend/src/main/ja#va/com/spookify/backend/domain/Artist.java
 
+# https://dzone.com/articles/caching-in-hibernate-with-redis
+
+# https://www.youtube.com/watch?v=PpkPTviLTLs
+
+# https://www.devglan.com/spring-boot/spring-boot-redis-cache
+
+
 
 
 

@@ -1,5 +1,6 @@
 package com.dailycodebuffer.springboot.tutorial.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,9 +20,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Cache(region = "commentCache", usage = CacheConcurrencyStrategy.READ_WRITE)
-
-public class Comment {
+public class Comment implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

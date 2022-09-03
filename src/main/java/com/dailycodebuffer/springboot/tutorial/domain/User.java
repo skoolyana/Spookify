@@ -25,8 +25,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import com.dailycodebuffer.springboot.tutorial.domain.annotations.JacksonIdSerializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,9 +34,8 @@ import lombok.Data;
 
 @Entity
 @Data
-@Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "users") // PostgreSQL - reserved keyword 'user'
-public class User implements UserDetails {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,14 +60,10 @@ public class User implements UserDetails {
 	private Date createdAt;
 	private Date updatedAt;
 
-	@JacksonIdSerializer
-	@Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "LIKED", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "SONG_ID"))
 	private List<Song> likedSongs = new ArrayList<>();
 
-	@JacksonIdSerializer
-	@Cache(region = "userCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Playlist> playlists = new ArrayList<>();
 
@@ -112,34 +106,5 @@ public class User implements UserDetails {
 		this.updatedAt = new Date();
 	}
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
+	
 }
